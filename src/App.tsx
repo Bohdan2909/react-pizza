@@ -4,8 +4,20 @@ import Header from './components/header/Header';
 import Categories from './components/categories/Categories';
 import Sort from './components/sort/Sort';
 import PizzaBlock from './components/pizza-block/PizzaBlock';
+import pizzas from '../src/assets/pizza.json'
 
 function App() {
+    console.log(pizzas)
+    const pizzaBlock = pizzas.map((pizza)=> <PizzaBlock key={pizza.id}
+                                                        title={pizza.title}
+                                                        category={pizza.category}
+                                                        id={pizza.id}
+                                                        rating={pizza.rating}
+                                                        price={pizza.price}
+                                                        imageUrl={pizza.imageUrl}
+                                                        types={pizza.types}
+                                                        sizes={pizza.sizes}
+    /> )
     return (
         <div className="wrapper">
             <Header/>
@@ -17,9 +29,7 @@ function App() {
                     </div>
                     <h2 className="content__title">Все пиццы</h2>
                     <div className="content__items">
-                        <PizzaBlock/>
-                        <PizzaBlock/>
-                        <PizzaBlock/>
+                        {pizzaBlock}
                     </div>
                 </div>
             </div>
