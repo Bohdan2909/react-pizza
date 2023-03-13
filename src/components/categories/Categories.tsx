@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
+type CategoriesType = {
 
-const Categories = () => {
+}
+const Categories:FC<CategoriesType> = () => {
     const categoriesState = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
     const [activeIndex, setActiveIndex] = useState(0)
     const clickCategoryHandler = (i: number) => {

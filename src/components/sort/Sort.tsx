@@ -1,6 +1,19 @@
-import React from 'react';
+import React, {FC, useState} from 'react';
+type SortType = {
 
-const Sort = () => {
+}
+const Sort:FC<SortType> = () => {
+    const [openPopup, setOpenPopup] = useState(false)
+    const [activeIndex, setActiveIndex] = useState(0)
+    const list = ['популярности', 'цене', 'алфавиту']
+    const listRender = list.map((l, i) => {
+        return <li key={i} onClick={() => selectedList(i)} className={activeIndex === i ? 'active' : ''}>{l}</li>
+    })
+    const selectedList = (i: number) => {
+        setActiveIndex(i)
+        setOpenPopup(false)
+    }
+    const sortName = list[activeIndex]
     return (
         <div className="sort">
             <div className="sort__label">
@@ -17,15 +30,15 @@ const Sort = () => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span>популярности</span>
+                <span onClick={() => setOpenPopup(!openPopup)}>{sortName}</span>
             </div>
-            <div className="sort__popup">
+            {
+                openPopup && <div className="sort__popup">
                 <ul>
-                    <li className="active">популярности</li>
-                    <li>цене</li>
-                    <li>алфавиту</li>
+                    {listRender}
                 </ul>
-            </div>
+              </div>
+            }
         </div>
     );
 };

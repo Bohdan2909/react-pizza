@@ -1,14 +1,26 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './scss/app.scss';
 import Header from './components/header/Header';
 import Categories from './components/categories/Categories';
 import Sort from './components/sort/Sort';
 import PizzaBlock from './components/pizza-block/PizzaBlock';
-import pizzas from '../src/assets/pizza.json'
+import {pizzaAPI, ResponsePizzaType} from './api/pizza-api';
+import Skeleton from './components/pizza-block/Skeleton';
 
 function App() {
-    console.log(pizzas)
-    const pizzaBlock = pizzas.map((pizza)=> <PizzaBlock key={pizza.id}
+    const [pizza, setPizza] = useState<ResponsePizzaType[]>([])
+    const [showSkeleton, setShowSkeleton] = useState(false)
+    useEffect(() => {
+        setShowSkeleton(true)
+        pizzaAPI.getPizza()
+            .then(res => {
+                setPizza(res.data)
+                setShowSkeleton(false)
+            })
+
+    }, [])
+
+    const pizzaBlock = pizza.map((pizza) => <PizzaBlock key={pizza.id}
                                                         title={pizza.title}
                                                         category={pizza.category}
                                                         id={pizza.id}
@@ -17,19 +29,20 @@ function App() {
                                                         imageUrl={pizza.imageUrl}
                                                         types={pizza.types}
                                                         sizes={pizza.sizes}
-    /> )
+    />)
+    const pizzaSkeleton = ([...new Array(12)].map((_, i) => <Skeleton key={i}/>))
     return (
         <div className="wrapper">
             <Header/>
             <div className="content">
                 <div className="container">
                     <div className="content__top">
-                    <Categories/>
-                       <Sort/>
+                        <Categories/>
+                        <Sort/>
                     </div>
                     <h2 className="content__title">Все пиццы</h2>
                     <div className="content__items">
-                        {pizzaBlock}
+                        {showSkeleton ? pizzaSkeleton : pizzaBlock}
                     </div>
                 </div>
             </div>

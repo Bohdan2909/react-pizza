@@ -14,6 +14,7 @@ const PizzaBlock: FC<PizzaBlockType> = ({title, price, rating, imageUrl, categor
     const typeNames = ['тонкое', 'традиционное']
     const [activeType, setActiveType] = useState(0)
     const [activeSize, setActiveSize] = useState(0)
+
     const clickTypeHandler = (type: number) => {
         setActiveType(type)
     }
@@ -55,6 +56,7 @@ const PizzaBlock: FC<PizzaBlockType> = ({title, price, rating, imageUrl, categor
                             fill="white"
                         />
                     </svg>
+
                     <span>Добавить</span>
                     <i>0</i>
                 </button>
