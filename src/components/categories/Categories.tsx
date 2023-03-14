@@ -1,16 +1,18 @@
 import React, {FC, useState} from 'react';
-type CategoriesType = {
 
+type CategoriesType = {
+    value: number
+    onClickCategory: (id: number) => void
 }
-const Categories:FC<CategoriesType> = () => {
+const Categories: FC<CategoriesType> = ({value,onClickCategory}) => {
     const categoriesState = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
-    const [activeIndex, setActiveIndex] = useState(0)
+    // const [activeIndex, setActiveIndex] = useState(0)
     const clickCategoryHandler = (i: number) => {
-        setActiveIndex(i)
+        onClickCategory(i)
     }
 
     const categories = categoriesState.map((category: string, i: number) => {
-        const activeClass = activeIndex === i ? 'active' : ''
+        const activeClass = value === i ? 'active' : ''
         return <li onClick={() => clickCategoryHandler(i)} key={i}
                    className={activeClass}>{category}</li>
     })

@@ -1,19 +1,27 @@
 import React, {FC, useState} from 'react';
-type SortType = {
+import {SortType} from '../../feature/home/Home';
 
+type SortPropsType = {
+    value: SortType
+    onClickSortType: (i: SortType) => void
 }
-const Sort:FC<SortType> = () => {
+const Sort: FC<SortPropsType> = ({onClickSortType, value}) => {
     const [openPopup, setOpenPopup] = useState(false)
-    const [activeIndex, setActiveIndex] = useState(0)
-    const list = ['популярности', 'цене', 'алфавиту']
-    const listRender = list.map((l, i) => {
-        return <li key={i} onClick={() => selectedList(i)} className={activeIndex === i ? 'active' : ''}>{l}</li>
+    // const [activeIndex, setActiveIndex] = useState(0)
+    const list = [
+        {name: 'популярности', sortProperty: 'rating'},
+        {name: 'цене', sortProperty: 'price'},
+        {name: 'алфавиту', sortProperty: 'title'}
+    ]
+    const listRender = list.map((obj, i) => {
+        return <li key={i} onClick={() => selectedList(obj)}
+                   className={value.sortProperty === obj.sortProperty ? 'active' : ''}>{obj.name}</li>
     })
-    const selectedList = (i: number) => {
-        setActiveIndex(i)
+    const selectedList = (i:SortType ) => {
         setOpenPopup(false)
+        onClickSortType(i)
     }
-    const sortName = list[activeIndex]
+    const sortName = value.name
     return (
         <div className="sort">
             <div className="sort__label">
