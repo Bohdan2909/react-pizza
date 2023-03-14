@@ -16,7 +16,7 @@ const Home: FC<HomeType> = () => {
                 setPizza(res.data)
                 setShowSkeleton(false)
             })
-
+        window.scrollTo(0,0)
     }, [])
 
     const pizzaBlock = pizza.map((pizza) => <PizzaBlock key={pizza.id}
