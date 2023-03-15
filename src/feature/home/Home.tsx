@@ -4,6 +4,7 @@ import Sort from '../../components/sort/Sort';
 import {pizzaAPI, ResponsePizzaType} from '../../api/pizza-api';
 import PizzaBlock from '../../components/pizza-block/PizzaBlock';
 import Skeleton from '../../components/pizza-block/Skeleton';
+import Pagination from '../pagination/Pagination';
 
 export type SortType = {
     name: string
@@ -15,17 +16,18 @@ const Home: FC<HomeType> = () => {
     const [showSkeleton, setShowSkeleton] = useState<boolean>(false)
     const [categoryId, setCategoryId] = useState<number>(0)
     const [sortType, setSortType] = useState<SortType>({name: 'популярности', sortProperty: 'rating'})
+    const [page, setPage] = useState(1)
 
     useEffect(() => {
         setShowSkeleton(true)
         const sort = sortType.sortProperty
-        pizzaAPI.getPizza(categoryId, sort)
+        pizzaAPI.getPizza(categoryId, sort, page)
             .then(res => {
                 setPizza(res.data)
                 setShowSkeleton(false)
             })
         window.scrollTo(0, 0)
-    }, [categoryId, sortType])
+    }, [categoryId, sortType, page])
 
     const pizzaBlock = pizza.map((pizza) => <PizzaBlock key={pizza.id}
                                                         title={pizza.title}
@@ -47,6 +49,7 @@ const Home: FC<HomeType> = () => {
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
                 {showSkeleton ? pizzaSkeleton : pizzaBlock}
+                <Pagination page={page} onChangePage={(num) => setPage(num)}/>
             </div>
         </>
     );

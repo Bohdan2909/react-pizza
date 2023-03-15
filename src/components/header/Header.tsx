@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../../assets/img/pizza-logo.svg';
 import {NavLink} from 'react-router-dom';
+import Search from '../../feature/search/Search';
 
 const Header = () => {
     return (
@@ -15,7 +16,7 @@ const Header = () => {
                         </div>
                     </div>
                 </NavLink>
-
+                    <Search/>
                 <div className="header__cart">
                     <NavLink to={'/cart'} className="button button--cart">
                         <span>520 ₽</span>
