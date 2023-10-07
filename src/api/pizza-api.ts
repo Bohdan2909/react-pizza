@@ -19,7 +19,7 @@ const instance = axios.create({
 
 
 export const pizzaAPI = {
-    getPizza(categoryId: number, sort: string,page:number) {
-        return instance.get<ResponsePizzaType[]>(`items?category=${categoryId > 0 ? `${categoryId}` : ''}&sortBy=${sort}&order=desc&limit=4&page=${page}`)
+    getPizza(categoryId: number, sort: string,page:number,searchValue:any) {
+        return instance.get<ResponsePizzaType[]>(`items?category=${categoryId > 0 ? `${categoryId}` : ''}&sortBy=${sort}&order=desc&limit=4&page=${page}&search=${searchValue}`)
     }
 }

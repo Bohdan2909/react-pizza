@@ -1,10 +1,11 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useContext, useEffect, useState} from 'react';
 import Categories from '../../components/categories/Categories';
 import Sort from '../../components/sort/Sort';
 import {pizzaAPI, ResponsePizzaType} from '../../api/pizza-api';
 import PizzaBlock from '../../components/pizza-block/PizzaBlock';
 import Skeleton from '../../components/pizza-block/Skeleton';
 import Pagination from '../pagination/Pagination';
+import {SearchContext} from '../../App';
 
 export type SortType = {
     name: string
@@ -18,16 +19,18 @@ const Home: FC<HomeType> = () => {
     const [sortType, setSortType] = useState<SortType>({name: 'популярности', sortProperty: 'rating'})
     const [page, setPage] = useState(1)
 
+    const {searchValue} = useContext<any>(SearchContext)
+
     useEffect(() => {
         setShowSkeleton(true)
         const sort = sortType.sortProperty
-        pizzaAPI.getPizza(categoryId, sort, page)
+        pizzaAPI.getPizza(categoryId, sort, page,searchValue)
             .then(res => {
                 setPizza(res.data)
                 setShowSkeleton(false)
             })
         window.scrollTo(0, 0)
-    }, [categoryId, sortType, page])
+    }, [categoryId, sortType, page,searchValue])
 
     const pizzaBlock = pizza.map((pizza) => <PizzaBlock key={pizza.id}
                                                         title={pizza.title}
