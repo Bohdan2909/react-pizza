@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 
 type CategoriesType = {
    value: number;
@@ -6,7 +6,7 @@ type CategoriesType = {
 };
 const Categories: FC<CategoriesType> = ({ value, onClickCategory }) => {
    const categoriesState = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
-   // const [activeIndex, setActiveIndex] = useState(0)
+
    const clickCategoryHandler = (i: number) => {
       onClickCategory(i);
    };

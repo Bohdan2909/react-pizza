@@ -5,13 +5,13 @@ import Page404 from "../../feature/page404/Page404";
 import Cart from "../../feature/cart/Cart";
 
 const RoutesPage = () => {
-  return (
-    <Routes>
-      <Route path={"/"} element={<Home />} />
-      <Route path={"/cart"} element={<Cart />} />
-      <Route path={"*"} element={<Page404 />} />
-    </Routes>
-  );
+   return (
+      <Routes>
+         <Route path={"/"} element={<Home />} />
+         <Route path={"/cart"} element={<Cart />} />
+         <Route path={"*"} element={<Page404 />} />
+      </Routes>
+   );
 };
 
 export default RoutesPage;
